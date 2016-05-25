@@ -248,6 +248,7 @@ class iPhotoLibrary(object):
             albums = self.albums
         i = 0
         for folder in albums:
+            print folder
             i += 1
             if self.use_album:
                 folderDate = None
@@ -256,6 +257,10 @@ class iPhotoLibrary(object):
             images = folder["KeyList"]
 
             folderName = folder[targetName]
+            numPhotos = folder["PhotoCount"]
+            print "* Album '%s' has %i photos" % (folderName, numPhotos)
+#            print folderName
+#            print numPhotos
 
             #as we process albums/events in the iPhoto library, remove that album
             #from the list of import_albums we'll be importing at the end
@@ -293,16 +298,17 @@ class iPhotoLibrary(object):
                     j += 1
                 self.output_dirs.add(targetFileDir)
 
-            self.status("* Processing %i of %i: %s (%i images)...\n" % (
-                i,
-                len(albums),
-                folderName,
-                len(images)
-            ))
-            for imageId in images:
-                for func in funcs:
-                    func(imageId, targetFileDir, folderDate)
-            self.status("\n")
+#            self.status("* Processing %i of %i: %s (%i images)...\n" % (
+#                i,
+#                len(albums),
+#                folderName,
+#                len(images)
+#            ))
+#            for imageId in images:
+#                print imageId
+#                for func in funcs:
+#                    func(imageId, targetFileDir, folderDate)
+#            self.status("\n")
 
         if self.import_missing: 
             self.status("importing folders:\n")
